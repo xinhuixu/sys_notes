@@ -1,0 +1,8 @@
+bitwise operators
+
+~x negation
+a | b or
+a & b and
+a ^ b xor
+  xor swap: a = a ^ b
+      allow you to swap without third
