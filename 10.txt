@@ -1,0 +1,127 @@
+161019
+bitwise operators
+
+~x negation
+a | b or
+a & b and
+a ^ b xor
+  xor swap: a = a ^ b
+      allow you to swap without third
+
+161020
+file permissions
+
+read write execute (rwx)
+     can be represented as 3-digit binary #
+     100 <==> 4 => r--
+     111 <==> 7 => rwx
+
+3 permssion areas
+  user, group, others: mutually exclusive
+  each can have distinct permission set
+       644 => user: read + write, group: read, other: read
+
+$ ls -a
+  show hidden files
+$ ls -l
+  show permission
+       -rw-r--r-- file
+       drw-r--r-- directory
+$ chmod 000 tester
+  	the owner can always change the permission
+
+a directory is a list of things it contain
+changing into a directory is executing the dir
+	 $ ./a.out
+	 prevent change to dir shut off x permission
+
+file table
+     list of all files used by program white it is running
+     contains basic info like file location / size
+     fixed size: simultaneous file # restriction usually pow 2, commonly 256
+     	   getdtablesize() : get descriptor table size
+	everyfile open is given index ^
+     3 files always open in table:
+       0 / STDIN_FILENO : stdin
+       1 / STDOUT_FILENO : stdout
+       2 / STDERR_FILENO : stderr
+
+161024
+opening up a world of possibilities
+
+#include <unistd.h>
+ssize_t read(int <file descriptor>, void *<buffer modifiable pointer>, size_t <read up to this much byte>);
+	// if count == 0 return errors or zero
+	   if count > SSIZE_MAX result unspecified
+   return numbers of bytes read
+   advance file position by that number
+
+(161025)
+write(int fd, void *buff, int amt); 
+
+$ man 2 write
+
+open(<PATH>,<FLAGS>,<MODE>);
+#include <fcntl.h>
+	 - combine flags with bitwise or
+	  O_WRONLY = 1	 00000001
+	  O_APPEND = 8	 00001000
+	  O_WRONGLY | O_APPEND = 0001001
+
+errno: global variable, lives in many libraries
+printf("error: %d - %s\n", errno, strerror(errno));
+
+
+161025
+read ur writes
+
+DO NOT COMMIT XABLE FILES
+INCLUDE MAKEFILE FOR ALL ASSIGNMENT
+DO NOT AUTO CALL RUN IN MAKEFILE
+
+int fd = open("foo.c", O_CREAT, 0666);
+if (fd<0) {
+   printf("error: %d - %s\n", errno, strerror(errno));
+   }
+// doesnt give correct permissions $ ls -l
+// why ??
+when create file some permissions auto shut off: file permission MASK
+
+umask
+#include <sys/stat.h>
+ applied by using BITWISE NEGATION on the mask,
+ 	 then BITWISE AND-ing it to the mode
+    new_permissions = ~mask & mode
+
+defmask  0   2   0
+        000 010 010
+~mask   111 101 101	
+mode    110 100 100
+	 6   4   4
+
+umask(<MASK>);
+umask(0000); // shut errthing off, or umask(0);
+...
+
+102716
+seek and ye shall find
+
+lseek
+#include <unistd.h>
+    set current position in an OPEN file
+    lseek(fd, <offset in bytes>, <whence>);
+      offset: bytes to move position by, CAN BE NEGATIVE
+      whence: where to messure offset from
+      	      SEEK_SET
+		offset eval from beginning of the file
+	      SEEK_CUR
+		from current pos
+	      SEEK_END
+		from end of file
+always returns number of bytes the current position is from beginning of file, or -1 (errno)
+       you could never be negative bytes in a file. 0 is ok.
+ex: lseek(fd, 12, SEEK_SET);
+!!
+int x;
+b = read(fd, &x, sizeof(int)); // malloc is an option.
+
