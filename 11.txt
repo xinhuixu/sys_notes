@@ -1,0 +1,80 @@
+110131
+
+directory
+
+ctime( &(sb1.st_mtime)); 
+
+sprintf(size, "%d KB", s/1000);
+    combination of printf and strcpy
+
+Q: return pointer? return variable storing pointer?
+
+*dont forget the terminatin null
+
+char * get_perm_string(mode_t mode ){
+     mode_t perms[3];
+     int i;
+     char *perm_string = (char *)malloc(10);
+     perm_string[9] = 0;
+     perms[0] = ( mode & 0b111000000 ) >> 6; //bitshifting
+     perms[1] = ( mode & 0b111000) >> 3;
+     perms[2] = ( mode & 0b111);
+... // not the best way
+}
+
+Directories
+    A *nix dir is a file containing the names of the files within the directory along with basic info like file type
+    moving files into/out of directory means chaning dir file not actually moving any data
+
+opendir - <dirent.h>
+    open a directory file
+    will not change cwd, only allows program to read content of dir
+    opendir(<PATH>);
+    return pointer to directory stream (DIR *)
+closedir
+    closedir(<DIR STREAM>);
+readir(<DS>);
+	returns a pointer to next entry in ds or NULL
+struct dirent - <sys/types.h>
+       dir struct, contain dir info
+       data members
+       	    d_name: Name of a file
+	    d_type: file type as int
+
+
+110316
+
+getcwd - <unistd.h>
+    get current working dir(<str buff>, <size>);
+    in absolute path
+    from where the program is called, not live
+    	 char path[100];
+	 path[99] = 0;
+	 getcwd(path, 99);
+
+chdir - <unistd.h>
+    chdir(<PATH>);
+	change the wd of the program! does not get popped or anything
+	returns 0 if succ, -1 (errno) if not
+
+command line args (tb...)
+    int main( int argc, char *argv[] )
+    program name (e.g. ./a.out) is the first command line arg
+    argc - number of arguments
+    argv - array of char *
+"he llo" = he\ llo
+
+scanf - <stdio.h>
+    scanf( <FORMAT STRING>, <V1>, <V2>... );
+    
+    int x;
+    printf("\nset the x:");
+    scanf("&d", &x);
+		^pt
+    	your input needs to match the format!
+    no need to worry about overflow here-
+    BUT STRINGS ARE PROBLEMATIC. POSSIBLE BUFFER OVERFLOW.
+    e.g. declare s[10] and enter longer
+
+
+
