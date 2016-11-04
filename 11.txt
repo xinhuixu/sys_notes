@@ -76,5 +76,36 @@ scanf - <stdio.h>
     BUT STRINGS ARE PROBLEMATIC. POSSIBLE BUFFER OVERFLOW.
     e.g. declare s[10] and enter longer
 
+110416
+
+fgets - <stdio.h>
+    read in from file stream, store in string
+    fgets( <dest>, <bytes>, <file pt> );
+        reads at most <bytes>-1
+    FILE POINTER - more complex than file descriptor
+    	 stdin is a FILE * variable
+    >>stops<< at newline, end of file, or reach byte limit
+    	      NEWLINE CHR IS KEPT AS PART OF STRING
+	      SHOULD DEAL WITH ACCORDINGLY
+    will append NULL after always
+NEVER USE GETS
+
+processes
+$ ps
+TIME is NOT how long CMD has been running
+     how long it took in processor
+TTY: terminal session identifier
+PID: process identification number
+refreshes when rebootps
+
+$ ps -a
+all processes attached to terminal sessions (not ALL)
+$ ps -ax
+ALL
+
+(specific to linux)
+/$ ls/proc
+   all process running has a folder in /proc
+  
 
 
