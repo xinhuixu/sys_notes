@@ -96,6 +96,7 @@ TIME is NOT how long CMD has been running
      how long it took in processor
 TTY: terminal session identifier
 PID: process identification number
+     *pid 1 is init
 refreshes when rebootps
 
 $ ps -a
@@ -106,6 +107,68 @@ ALL
 (specific to linux)
 /$ ls/proc
    all process running has a folder in /proc
+
+
   
+110716
+are your processes running? then you should go out and catch them
+
+every running program is a process
+a process can create subprocesses, which are just processes
+
+a processor can handle 1 process per cycle/core
+"multitasking" is an illusion         
+
+getpid() - <unistd.h>
+getppid()
+   parent process id
+
+signals
+  a limited way of sending info to a process
+  $ kill <PID>
+    	 sends signal 15 (SIGTERM) to PID
+  $ kill -signal <PID>
+    	 the signal KILL (9) cannot be intercepted
+*CTRL C = signal (2) SIGINT
+$ kill -11 <PID>
+Segmentation fault: 11
+
+stop means suspend, diff from terminate
+
+$ killall [-<SIGNAL>] <PROCESS NAME>
+signal all p with pname
+
+in C:
+kill(<PID>, <SIGNAL>); //return 0 on succ
+#include <signal.h>
+
+v must be this header!
+static void sighandler(int signo){ //replace default sighandler
+       if ( signo == SIGNIT )
+       	  printf("nice try");
+}
+int main(){
+    signal(SIGINT, sighandler); //pass func name as param, is all good
+    signal(SIG..., sighandler);
+    ...
+    return 0;
+}
+
+* sleep(1); //waits 1 sec
 
 
+111016
+what the fork
+
+fork() - <unistd.h>
+creates separate process based on current one
+	new process is child
+	original is parent
+child process is a duplicate of parent process. it is COPIED, including stack and heap mem and the file table.
+returns 0 to child and the childs pid to the parent or -1 (errno)
+if parent process end before child, child (orphan process) pid is 1.
+
+int f = fork();
+
+ALL CODE AFTER FORK() IS REPEATED.
+parents won't always exit "on the right time".
