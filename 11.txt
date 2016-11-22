@@ -157,7 +157,7 @@ int main(){
 * sleep(1); //waits 1 sec
 
 
-111016
+161110
 what the fork
 
 fork() - <unistd.h>
@@ -165,10 +165,72 @@ creates separate process based on current one
 	new process is child
 	original is parent
 child process is a duplicate of parent process. it is COPIED, including stack and heap mem and the file table.
-returns 0 to child and the childs pid to the parent or -1 (errno)
+>>returns 0 to child and the childs pid to the parent or -1 (errno)
+	  f = fork();
+	  if (f == 0)
+	     printf("\tim a child");
+	  else 
+	     printf("f: %d\n", f);
 if parent process end before child, child (orphan process) pid is 1.
 
 int f = fork();
 
-ALL CODE AFTER FORK() IS REPEATED.
+ALL CODE AFTER FORK() IS REPEATED BY BOTH PROGRAM though u can separate some instructions. the child won't run code before fork() but many things are the same.
 parents won't always exit "on the right time".
+
+
+161115
+wait for it,,
+
+exit(0) allows you to terminate from func that's not main
+
+a thread is a separate executable entity similar to a child process, except a thread i snot a standalone process. it does not have its own memory space. it shares its (running) parent's memory. it cannot exist on its own.
+
+sleep takes time but you don't know how long the other process is going to take. so we have:
+
+wait - <unistd.h>
+stops parent proces from running until any child has provided STATUS INFO to parent via SIGNAL.
+returns pid of child that exited or -1 (errno).
+
+else {
+    int status, r; //you don't need to malloc
+    r = wait( &status ); //address to an int
+    //status info provided by child
+    printf("wait returned: %d, status: %d", r, status);
+    ...WEXITSTATUS(status);
+
+161117
+
+char * command[3];
+     this is an array of pointers
+     | 8000 | 8010 | NULL |
+       	 v
+     | l | s | NULL |
+     8000
+
+command[0] = "ls"; ?
+command[1] = "-l";
+command[2] = 0;
+
+execvp( command[0], command );
+
+
+char line[] = "cho-gi-wa";
+strsep - <string.h>
+       used for parsing a string with a common delimiter
+       strsep( <SOURCE>, <DELIMITER> );
+       parses only 1 chunk at a time by replacing with NULL and returning front chunk
+       source string set to newest head
+char *s = line;
+char *p;
+p = strsep( &s, "-"); //why the address operator if it's already pointer
+
+while ( s ) {
+      command[i] = strsep( &s, " " );
+      i++;
+}
+>> command[i] = 0; <<
+
+
+161118
+
