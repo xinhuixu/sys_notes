@@ -1,0 +1,36 @@
+C strings
+  Strings are chr arrays that end with a null character:
+  	  '' or 0 or '\0'
+	  terminating null chr is convention
+	  	      things after t.n. not displayed
+	  string func will not work correctly without it
+  literal string uses "", immutable str is created and stored in mem.
+  	  automatically null terminated
+
+--
+
+  chr should be in single quote
+      chr is an int type. 65 = 'A'
+      
+  sizeof(array) = assigned/allocated number
+
+--
+
+declaration
+	char s[256];
+	     allocates 256 bytes, nothing default
+	     have to set t.n. manually
+
+	char s[256] = "mangoes";
+	     256 bytes, create immutable string mangoes
+	     then copies into s
+	     and include t.n.
+	     	 if s[n] n<yourstring len, might muddle w/ other variables.
+		 dangerous!
+
+	char s[] = "durians";
+	     allocate 8 (7+1 t.n.) bytes
+
+	char *s = "grapes";
+	     pointer points to generate immutable string mem. cannot modify
+	     get $Bus error:
