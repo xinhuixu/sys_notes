@@ -232,5 +232,54 @@ while ( s ) {
 >> command[i] = 0; <<
 
 
-161118
+161122
 
+no need to fget strip newline.
+*(strchr(line, '\n')) = NULL;
+	strchr returns pointer
+	dereference pointer set it to NULL
+
+while ((cmd[i] = strsep(&s," ")))
+      i++;
+
+command line redirection
+    <command> > <file>
+    redir stdout to file, overwrite file
+    formating might not exactly be the same (ls change into vert list)
+    
+    >>
+    append instead of overwrite
+
+    cat <no-arg> will display stdin: C^D to send end of file chr
+
+    cat > foo
+    cheap text editor
+    but if you hit newline you can't go back
+
+    2> (2 is stderr fd!)
+    stderr to a file
+    
+    &>
+    stdout and stderr
+
+    <
+    redirect stdin from file
+
+
+    | (pipe)
+    redirect stdout from one command to stdin of next
+    ls | wc
+
+redirection in c programs
+    dup2(fd1, fd2)
+    duplicate behavior 1 to 2
+    redirects 2 to 1
+    lose all reference to fd2
+
+    dup( fd )
+    dup existing entry in file table
+    returns new fd for the duplicate entry
+
+    dup(1);
+    dup2(3,1);
+    dup2(4,1);
