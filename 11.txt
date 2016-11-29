@@ -283,3 +283,46 @@ redirection in c programs
     dup(1);
     dup2(3,1);
     dup2(4,1);
+
+
+161129
+
+sharnig is caring
+dn: seems like var declared in parent and then mod in child would not be mod in parent.
+
+shared memory - <sys/shm.h>, <sys/ipc.h>, <sys/types.h>
+       - segment of heap mem that can be accessed by multiple processes
+       - accessed via some key knwon by any process that needs it
+       - does NOT get released when program exists
+the 5 operations
+    1. create segment (happens once)
+    2. access seg (happens once per proc) //created is also accessed
+       //not the same as using
+    3. attach the seg to a var (once per proc)
+    4. detach seg from var (once per proc)
+    5. rem seg (juz once) //gone 4ever
+
+shmget( key, size, flags )
+    create or access
+    returns a shared memory descriptor or -1 errno
+    key: identifier
+    size: how much mem to req
+    flags: includes permissions for seg, Combine with bitwise
+    	   IPC_CREAT (inter-process communications, btw)
+	   	     if seg is new set value to all 0
+	   IPC_EXCL
+		fail if seg already exists and creat is on: to protect overwrite
+    int sd;
+    sd = shmget( 24601, 1024, IPC_CREAT | 0664);
+
+fuddlin'
+shmat( desc, address, flags );
+     return pointer to segment or -1
+     desc: return value of shmget!
+     address: if 0, OS provide appropraite address (auto)
+     flags: usually 0 but
+     	    SHM_RDONLY: read only
+
+see share.c
+    attached variable does NOT have same address but same value
+
