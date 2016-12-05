@@ -1,0 +1,37 @@
+1205
+
+how do we flag down a resource
+
+System V IPC (five interprocess communications)
+       standard spec of OS
+(POSIX system is something else)
+
+Semaphore (by Edsger Dijkstra)
+	  ipc construct used to control access to Shared Resource
+ 	  it is a counter: counts how many processes can access this resource at any given time
+	  3 = 3 active users, 0 = unavailable.
+	  if something TAKES THE semaphore the counter goes down
+Mutex: semaphore with value = 1
+Semaphores are Atomic Operations. they cannot be broken up
+	   any attempt to take the semaphore will go through completely
+smp ops:
+    create a smp
+    set an initial value
+    up(smp)/V(smp): "upping" or releasing semaphore to signal that u r done with it
+    down(smp)/P(smp): taking the smp. if 0 wait for available
+    pseudocode:
+	while(s==0)
+		block;
+	s--; 
+*smp ops doesn't always have to change by 1.
+*smp has no direct relationship with resource
+    remove semaphore
+
+<sys/type.h, ipc.h, sem.h>
+	 semget(<KEY>,<AMT>,<FLAGS>)
+		does NOT modify smp. it create/access
+	 	returns
+
+ftok
+
+ 
