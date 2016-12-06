@@ -31,7 +31,61 @@ smp ops:
 	 semget(<KEY>,<AMT>,<FLAGS>)
 		does NOT modify smp. it create/access
 	 	returns
-
 ftok
 
- 
+1206
+
+semctl(descriptor, index, operation(, data)): check out man page
+	non-atomic operations: NOT USED to up/down
+	- set smp value
+	- remove smp
+	- get current value
+	- get info about smp
+OPERATION(cmd in man page):
+	IPC_RMID, SETVAL, SETALL, GETVAL(return val), IPC_STAT
+
+union semun { ... }; /* linux only, dec on top. 8 bytes*/
+
+int main(int argc, char *argv[]){
+    int semid;
+    key = ftok("makefile",22);
+    if (strncmp(argv[1], "-c", strlen(argv[1])) == 0) {
+       sc = semctl( semid, 0, GETVAL );
+       semid = semget( key, 1, IPC_CREAT | 0644 );
+       union semun su;
+       su.val = 1;
+       sc = semctl( semid, 0, SETVAL, su ); //0=succ
+    }
+    } else if {
+    	 semid = semget(key,1,0);
+    	 sc = semctl( semid, 0, GETVAL); //1
+    } else if {
+    	 semid = semget(key,1,0);
+    	 sc = semctl( semid, 0, IPC_RMID ); //get rid. this is just a demo
+    }
+
+$ipcs: see shm and sems in shell
+$./test -c
+
+semop(descriptor, operation, amt) //guaranteed atomic!
+	descriptor = semid
+	amt = how many smp u want to operate on in the smp set? for single = 1
+	operation = a ..pointer to a struct sembuf value (no need 2 decl)
+	
+		struct sembuf {
+		       short sem_op;
+		       short sem_num;
+		       short sem_flag;
+		};
+	sem_op: 1 up(s)
+		-1 down(s)
+		   any +/- number will work
+		0 : block until smp reaches 0
+	sem_num: index of smp. prob 0
+	sem_flag: ...
+		  SEM_UNDO: allow os to undo op
+		  IPC_NOWAIT: instead of waiting for smp availability return error
+
+
+
+	
