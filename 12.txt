@@ -88,4 +88,6 @@ semop(descriptor, operation, amt) //guaranteed atomic!
 
 
 
-	
+1207
+
+alt-; = autocomment
