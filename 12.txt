@@ -91,3 +91,31 @@ semop(descriptor, operation, amt) //guaranteed atomic!
 1207
 
 alt-; = autocomment
+
+
+1212
+
+ceci n'est pas une pipe
+
+malloc dynamic arrays
+update shared mem before UP
+
+pipe
+    conduit between 2 processes on same computer
+    2 ends: read end and write end
+    UNIDIRECTIONAL: either read or write only in a process
+    acts just like files
+    can transfer any data u like
+
+unnamed pipes have no external identification (WOW!)
+
+P1 --->	P2
+0	0
+1	1
+2	2
+3 P_R	3 P_R
+4 P_W	4 P_W
+
+pipe(int fds[2]) creates unnamed pipe. ret 0 if created and -1 if not
+       opens both ends of pipe as files
+read(fds[0], s, sizeof(s));
