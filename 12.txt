@@ -119,3 +119,31 @@ P1 --->	P2
 pipe(int fds[2]) creates unnamed pipe. ret 0 if created and -1 if not
        opens both ends of pipe as files
 read(fds[0], s, sizeof(s));
+
+1213
+
+#define READ 0
+#define WRITE 1
+
+Named pipes (FIFOs: like Queues!)
+      - also unidirectional
+
+$ mkfifo mario
+$ cat > mario	$ cat > mario	$ cat mario
+if you read from 2 processes: random display..
+$ rm mario
+ - mario somehow still works
+ - connection will work until close read/w end
+
+mkfifio <sys/type.h, stat.h>
+0/-1
+mkfifo(name, permissions)
+	     can read write close, like reg file
+FIFOs will block on open until both ends of the pipe have a connection
+
+mkfifo("mario",0644);
+int fd = open("mario", O_WRONLY);
+printf("connected\n"); //this is BLOCKED before
+		       $ cat mario
+write(fd, "asdf", 4);
+
