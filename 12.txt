@@ -147,3 +147,19 @@ printf("connected\n"); //this is BLOCKED before
 		       $ cat mario
 write(fd, "asdf", 4);
 
+1214
+
+handshake
+	procedure to ensure connection has been est.
+	both ends must verify that they can send/rec date to and from each other
+
+	1) server creates fifo (Well Known Pipe: known by other programs)
+	2) server waits for connection
+	3) client creates PRIVATE FIFO
+	4) client connects 2 server and sends the private fifo name
+	5) client wats for message on server
+	6) server receives client's message and REMOVES TO WKP
+	7) server connects to client FIOFO send initial acknowledgement msg
+	8) client receives server's message, removes its private pipe FILE
+	9) client sends acknowledgement msg back to server
+
