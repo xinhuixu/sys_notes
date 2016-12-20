@@ -163,3 +163,47 @@ handshake
 	8) client receives server's message, removes its private pipe FILE
 	9) client sends acknowledgement msg back to server
 
+1219
+
+makefile rule of thumb
+
+.c -> .o
+.o -> executable
+
+1220
+
+Cisco
+
+what is needed in order for 2 comps to communicate with each other
+
+- physical connection
+- identification
+- protocol/ common language/ comman packaging
+- security
+- data validation
+- user experience
+
+OSI 7-layer model: conceptualize different parts of network connections
+-----------------
+top layer: most concrete, subsequent layers get more abstract(code-based)
+1. physical
+2. data link
+3. network
+4. transport
+5. session
+6. presentation
+7. application
+
+1.
+    how computers are physically connected
+    copper cable, infrared, wifi, etc.
+
+    history of wired connections
+    ----------------------------
+    thicknet: single Coaxial cable, vampire tap
+    thinner: single cable with splitters, no breaking holes
+      in thicknet and thinnet all data is sent to all computers
+      each computer added increases power drain on system, degrading service
+
+
+
