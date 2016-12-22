@@ -201,9 +201,29 @@ top layer: most concrete, subsequent layers get more abstract(code-based)
     history of wired connections
     ----------------------------
     thicknet: single Coaxial cable, vampire tap
-    thinner: single cable with splitters, no breaking holes
+    thinnet: single cable with splitters, no breaking holes
       in thicknet and thinnet all data is sent to all computers
-      each computer added increases power drain on system, degrading service
+      :( each computer added increases power drain on system, degrading service
 
+    token ring network: computers connected in a ring, 1 computer "has the token"; all other comps must wait to use the network
+      :( everyone gets everything
+      :) No collisions
 
+    ethernet: multiple computers connect 2 a hub or switch
+    	      hub: broadcasts data to all computers
+	      switch: sends data to SPECIFIC computer!
+	      :( the more computers added to ethernet network the greater the chance of collisions
 
+1222
+
+2. DATA LINK
+    point-to-point transmission btwn devices on same local network
+    ethernet connections:
+    	     each device is given a unique 6-Byte MAC(Media Access COntrol) address, this is set on each network card when it is made.
+	     data is packaged into frames:
+	     ETHERNET FRAME:
+	     <prefix><dest><src><...><data><checksum>     
+	     8B      6B    6B   6B   46-1500B 4B
+	     	     ^MAC addr	     	      
+	     MTU(Maximum Transmission Unit)
+	     1500 Bytes for ethernet				   
