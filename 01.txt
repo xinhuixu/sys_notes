@@ -1,0 +1,14 @@
+0103
+
+CISCO IN AN HOUR IV
+
+Network Layer
+  Transmission of data btwn 2 sep networks (eg school nw <-> digital ocean nw)
+  I N T E R N E T
+  Connectionless: unconcerned whether or not data was sent successfully
+  addressing, routing, packet forwarding
+
+  Internet Protocal (IP) addresses
+    IPv4: 4 byte address [0-255].[0-255].[0-255].[0-255]
+                          octet (8 bit)
+    routing is made easier by having ip addresses distributed in blocks
