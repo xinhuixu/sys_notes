@@ -12,3 +12,41 @@ Network Layer
     IPv4: 4 byte address [0-255].[0-255].[0-255].[0-255]
                           octet (8 bit)
     routing is made easier by having ip addresses distributed in blocks
+
+0104
+
+CISCO IN AN HOUR V
+
+an ip doesn't have to be identical throughout run
+packets will be forwarded by network equipments
+  $ traceroute google.com
+  : all of devices MY data has to go through to reach google (network host)
+  : each step is called a "hop"
+
+Network layer (cont.)
+  data is broken into packets(IPv4)
+  <header info><packet length><fragment info><time-to-live><protocol><header checksum><src><dest><...><data>
+		       		20 - 65,535B
+  h.i.: packet type (v4/6), header length..
+  fragment info: full payloads may be broken up; contains total # pf fragments, which fragment
+  time-to-live: maximum hops before packet DEATH
+    ->identical to how traceroute works: incrementing t2l
+  protocol: TCP/UDP/...
+  <...>: optional info
+  src, dest: 4 bytes each, IPv4 addresses
+
+the problem with IPv4: running out of ip address
+IPv6
+  address space: 2^32 -> 2^128
+  8 groups of 4 hexadecimal digits
+    87ab : 301c : 73ab : 8731...
+      this is how you write it, not how it is rep in computer
+
+    leading 0s are ignored
+    0000 replaced with ::, but only once in an address
+
+  IPv4 address can be represented with 5 0-groups, 1 f-group(96 bits) followed by original v4 address (32 bits)
+       :: ffff : 149.89.150.100
+  some incompatibility exist: cannot be interchanged
+  jumbograms: increase MTU to ~4.3 billion (2^32)
+  
