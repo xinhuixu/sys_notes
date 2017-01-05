@@ -50,3 +50,40 @@ IPv6
   some incompatibility exist: cannot be interchanged
   jumbograms: increase MTU to ~4.3 billion (2^32)
   
+0105
+
+CISCO IN AN HOUR VI
+
+TRANSPORT LAYER
+  computer to computer connection over a network
+  unconcernde with the individual hops of layer 3 traffic
+
+  every destination address has multiple PORTS.
+  Ports is an addition to ip address which specifies services
+  65535 ports: <1024 are well known, reserved ports, regulated by the Internet Assigned Numbers Authority (IANA).
+  port 22 is ssh, port 80 is HTTP, 443 is HTTPS...
+
+  two main protocols for data transfer in this 4th layer
+  TCP / UdP
+
+Transmission Control Protocol
+  reliable connection, guarantees delivery of data
+  data is a continious stream that arrives in the order it is sent (which may not be true in the network layer)
+  tcp is sometimes referred to as STREAM. tcp connection will ensure data is sent in order and not partially lost.
+  3 way handshake to establish connection
+    server 'binds' to a port and waits
+      1. client sends a SYN msg to server
+      2. server sends the client a SYN_ACK msg
+      3. client sends an ACK msg to the server
+
+User Datagram Protocol
+  does not require an explicit connection
+  not a continuous stream; transimitted in distincted 'bursts' of data (datagrams). they may be dropped or received out of order.
+  assumes that any kind of error checking is handled at a leter level.
+  is more efficient. no handshakes. or if software wishes to handle piecing broken data together itself
+  standard for streaming media and video game is UDP.
+  
+
+
+
+
