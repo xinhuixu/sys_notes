@@ -83,7 +83,44 @@ User Datagram Protocol
   is more efficient. no handshakes. or if software wishes to handle piecing broken data together itself
   standard for streaming media and video game is UDP.
   
+0106
 
+VII
+remaining layers:
+ 5. session
+ 6. presentation
+ 7. application
 
+  session layer represents end-to-end connections in a program (SOCKETS)
+  presentation represents how programs package transmitted data
+      how do we form a valid web request?
+  application rep the program that user interact with
 
+<sys/socket.h, sys/types.h>
+  network connection between two PROGRAMS.
+  a socket has 2 ends, each one consisting of an IP Address/Port PAIR.
+  1. create the socket
+  2. bind to address and port
+  3. listen/initiate a connection
+  4. send/receive data
+
+socket(int domain, int type, int protocol);
+    domain: AF_INET (IPv4) (pf_inet on man page)
+    type: SOCK_STREAM(tcp) or SOCK_DGRAM(udp)
+    protocol: if set to 0, OS will set to correct protocol
+              this is a combination of domain and type setting
+
+bind( sd, address, address length);
+    return 0 or -1
+    if i am a client and i want to connect to server, i will want to bind my socket to the server and ..what port?
+    the server, in a resting state, will bind to its own ip address so it can listen. the server might have multiple valid ip addresses.
+    every computer has its loopback address with which it connects to itself.
+    server has at least one external ip address.
+
+    address: pointer to struct sockaddr_in
+        sin_family: address domain (eg AF_INET)
+        sin_addr: IP address in binary; INADDR_ANY (any incoming connection)
+                  we want the octets in binary
+                  inet_aton(string, address variable);
+                    convert string representing ip address to the correct format and place it in the second param
 
