@@ -119,8 +119,28 @@ bind( sd, address, address length);
 
     address: pointer to struct sockaddr_in
         sin_family: address domain (eg AF_INET)
-        sin_addr: IP address in binary; INADDR_ANY (any incoming connection)
-                  we want the octets in binary
+        sin_addr: IP address in *binary*; INADDR_ANY (any incoming connection)
+		  works differently in client server
+		  we want the octets in binary (32 bits)
+		     	      	     	sin_addr
                   inet_aton(string, address variable);
+		  		    #include <arpa/inet.h>
                     convert string representing ip address to the correct format and place it in the second param
+	sin_port: can't just set it = to 8000..
+		..how does computers represnet numbers
+		short s = 260;
+		method 1, Big endian (most significant byte first): 00000001 00000100
+		method 2, Little endian: 00000100 00000001 (school lab comp)
+		network standard: big endian
 
+		htons( int );
+
+0110
+Recap:
+1. create socket
+2. bind to ip/port
+3. accept/connect
+4. transmit data
+
+sockaddr is the generic version of sockaddr_in(for IPv4)
+...
