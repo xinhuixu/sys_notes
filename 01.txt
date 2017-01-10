@@ -134,6 +134,14 @@ bind( sd, address, address length);
 		network standard: big endian
 
 		htons( int );
+listen (server only)
+  TCP server will listen to a socket and wait for an incoming connection
+  listen(sd,1);
+    return 0, -1, failure
+  the 1 is queue length- obsolete
+accept (server only)
+  set up tcp connection, handles required 3-way handshake
+  once a client connection gets past listen(), accept creates A NEW SOCKET with the client info added, and returns descriptor to the new socket
 
 0110
 Recap:
