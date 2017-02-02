@@ -1,0 +1,25 @@
+0202
+
+png (compressed ll): run length encoding
+GGGRPP -> 3G1R2P
+really good for biiig blobs of uniform color, as opposed to intricate details
+
+jpg (compressed, lossy)
+gif (compressed, lossless**)
+    you cannot shrink compressed fformats by zip
+
+Raster format: png jpg gif bmp tiff
+    stored as grid of pixels
+Vector imgs: svg pdf
+
+Net PBM format (uncompressed lossless)
+*.ppm
+all whitespace is Equal, meaning no arrangement of \n,\t etc
+    Header
+        P3
+        Xres Yres
+ 	Max color (can default to 255)
+    Pixel dataz
+        RGB RGB RGB...
+^C ^C
+in emacs gui switch between image view and code view
